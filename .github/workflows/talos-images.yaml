@@ -21,8 +21,12 @@ jobs:
         id: talos-release
         run: |
           talos_release_tag=$(curl -sL https://api.github.com/repos/siderolabs/talos/releases/latest | jq -r ".tag_name")
-          talos_release_body=$(curl -sL https://api.github.com/repos/siderolabs/talos/releases/latest | jq -r ".body")
           echo "talos_release_tag=$talos_release_tag" >> $GITHUB_OUTPUT
+      
+      - name: Fetch latest Talos release body
+        id: talos-release-body
+        run: |
+          talos_release_body=$(curl -sL https://api.github.com/repos/siderolabs/talos/releases/latest | jq -r ".body")
           echo "talos_release_body=$talos_release_body" >> $GITHUB_OUTPUT
 
       - name: Fetch latest Boot Asset release version
@@ -45,7 +49,7 @@ jobs:
     outputs:
       newTalosReleaseFound: ${{ steps.compare-releases.outputs.compare_result }}
       talosReleaseTag: ${{ steps.talos-release.outputs.talos_release_tag }}
-      talosReleaseBody: ${{ steps.talos-release.outputs.talos_release_body }}
+      talosReleaseBody: ${{ steps.talos-release-body.outputs.talos_release_body }}
 
   build-boot-assets:
     needs: [ check-releases ]
