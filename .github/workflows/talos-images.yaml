@@ -21,6 +21,7 @@ jobs:
         id: talos-release
         run: |
           talos_release_tag=$(curl -sL https://api.github.com/repos/siderolabs/talos/releases/latest | jq -r ".tag_name")
+          talos_release_body=$(curl -sL https://api.github.com/repos/siderolabs/talos/releases/latest | jq -r ".body")
           echo "talos_release_tag=$talos_release_tag" >> $GITHUB_OUTPUT
 
       - name: Fetch latest Boot Asset release version
@@ -43,6 +44,7 @@ jobs:
     outputs:
       newTalosReleaseFound: ${{ steps.compare-releases.outputs.compare_result }}
       talosReleaseTag: ${{ steps.talos-release.outputs.talos_release_tag }}
+      talosReleaseBody: ${{ steps.talos-release.talos_release_body }}
 
   build-boot-assets:
     needs: [ check-releases ]
@@ -105,7 +107,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.check-releases.outputs.talosReleaseTag }}
-          body: Talos release ${{ needs.check-releases.outputs.talosReleaseTag }} boot assets for amd64.
+          body: ${{ needs.check-releases.outputs.talosReleaseBody }}
           files: |
             /tmp/talos-build-assets/metal-amd64.iso
 
