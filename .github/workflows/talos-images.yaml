@@ -26,8 +26,9 @@ jobs:
       - name: Fetch latest Talos release body
         id: talos-release-body
         run: |
-          talos_release_body=$(curl -sL https://api.github.com/repos/siderolabs/talos/releases/latest | jq -r ".body")
-          echo "talos_release_body=$talos_release_body" >> $GITHUB_OUTPUT
+          echo 'talos_release_body<<EOF' >> $GITHUB_OUTPUT
+          curl -sL https://api.github.com/repos/siderolabs/talos/releases/latest | jq -r ".body" >> $GITHUB_OUTPUT
+          echo EOF >> $GITHUB_OUTPUT
 
       - name: Fetch latest Boot Asset release version
         id: boot-asset-release
