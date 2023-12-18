@@ -147,4 +147,4 @@ jobs:
       - uses: imjasonh/setup-crane@v0.3
       - name: Crane push installer
         run: |
-          crane push --platform amd64 /tmp/talos-build-assets/metal-amd64-installer.tar ${{ env.REGISTRY }}/ishioni/installer:${{ needs.check-releases.outputs.talosReleaseTag }}
+          crane push --platform amd64 /tmp/talos-build-assets/installer-amd64.tar ${{ env.REGISTRY }}/ishioni/installer:${{ needs.check-releases.outputs.talosReleaseTag }}
