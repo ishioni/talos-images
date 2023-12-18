@@ -70,7 +70,6 @@ jobs:
             --arch amd64 \
             --system-extension-image ghcr.io/siderolabs/qemu-guest-agent:${{ env.QEMU_GUEST_AGENT_VERSION }} \
             --system-extension-image ghcr.io/siderolabs/i915-ucode:${{ env.I915_UCODE_VERSION }} \
-            --system-extension-image ghcr.io/siderolabs/iscsi-tools:${{ env.ISCSI_TOOLS_VERSION }} 
 
       - name: Build amd64 iso w/ addons
         run: |
@@ -78,7 +77,6 @@ jobs:
             --arch amd64 \
             --system-extension-image ghcr.io/siderolabs/qemu-guest-agent:${{ env.QEMU_GUEST_AGENT_VERSION }} \
             --system-extension-image ghcr.io/siderolabs/i915-ucode:${{ env.I915_UCODE_VERSION }} \
-            --system-extension-image ghcr.io/siderolabs/iscsi-tools:${{ env.ISCSI_TOOLS_VERSION }} \
             --extra-kernel-arg net.ifnames=0 --extra-kernel-arg i915.disable_display=true
 
       - name: Upload installer artifact
