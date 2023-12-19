@@ -1,1 +1,2 @@
-Make images for talos i guess
+## Deprecated
+### Use [Talos image factory](https://factory.talos.dev/)
